@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Uncrowd</string>
+    <string name="from_you_text">from you)</string>
+    <string name="hours_title_text">Hours: </string>
+    <string name="opened_business_text"><b>Open</b></string>
+    <string name="closed_business_text"><b>Closed</b></string>
+    <string name="types_title_text">Types: </string>
+    <string name="trend_title_text">Trend: </string>
+    <string name="averages_title_text">Averages: </string>
+    <string name="on_my_way_btn_text">ON MY WAY!</string>
+    <string name="alternatives_btn_text">ALTERNATIVES</string>
+    <string name="title_activity_business_extended_details">Extended Details</string>
+    <string-array name="days">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Thursday</item>
+        <item>Wednesday</item>
+        <item>Tuesday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+    <string name="title_activity_advanced_search">Advanced Search</string>
+    <string name="advanced_search_type_name_text_view"><b>Business Types</b></string>
+    <string name="advanced_search_radius_name_text_view"><b>Business radius</b></string>
+    <string name="advanced_search_selected_types_text_view">Selected Types:</string>
+    <string name="advanced_search_type_hint">Enter type</string>
+    <string name="advanced_search_name_hint">Enter name</string>
+    <string name="km">km</string>
+    <string name="radius">Radius</string>
+
+    <string name="title_activity_alternatives">Alternatives</string>
+
+    <string name="alternatives_to">Alternatives to</string>
+
+    <string name="take_me_there_btn_text">TAKE ME THERE!</string>
+
+    <string name="empty_businesses_list_error_text">Connection error, are you connected?\nTry refreshing when ready.</string>
+    <string name="empty_businesses_list_text">No businesses found</string>
+</resources>

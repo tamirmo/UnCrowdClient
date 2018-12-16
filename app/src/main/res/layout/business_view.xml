@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="business"
+            type="tamirmo.uncrowd.data.Business"/>
+        <import type="android.view.View"/>
+    </data>
+    <android.support.constraint.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".BusinessFragment">
+
+        <TextView
+            android:id="@+id/business_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text='@{business.name, default="Toys R Us"}'
+            android:textColor="@color/business_fragment_text_color"
+            android:textSize="18sp"
+            android:paddingBottom="13dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/business_address"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/business_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{String.format("%s (", business.address), default="Sheshet Hayamim 200, Bnei Brak ("}'
+            android:textColor="@color/business_fragment_text_color"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/business_distance"
+            app:layout_constraintStart_toEndOf="@+id/business_address"
+            app:layout_constraintTop_toBottomOf="@+id/business_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{String.format("%.2fkm", business.distance), default="0.2m "}'
+            android:textColor="@color/business_fragment_distance_text_color"
+            android:paddingEnd="5dp"
+            android:paddingRight="5dp" />
+
+        <TextView
+            app:layout_constraintStart_toEndOf="@+id/business_distance"
+            app:layout_constraintTop_toBottomOf="@+id/business_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/from_you_text"
+            android:textColor="@color/business_fragment_text_color"/>
+
+        <TextView
+            android:id="@+id/business_hours_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/business_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hours_title_text"
+            android:textColor="@color/business_fragment_text_color"
+            android:layout_margin="8dp"/>
+
+        <TextView
+            android:id="@+id/business_is_open_text"
+            app:layout_constraintStart_toEndOf="@+id/business_hours_title"
+            app:layout_constraintTop_toBottomOf="@+id/business_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{business.isOpen ? @string/opened_business_text :@string/closed_business_text, default=@string/opened_business_text}'
+            android:textColor='@{business.isOpen ? @color/business_fragment_opened_text_color : @color/business_fragment_closed_text_color, default=@color/business_fragment_opened_text_color}'
+            android:layout_margin="8dp"/>
+
+        <TextView
+            android:id="@+id/business_hours"
+            app:layout_constraintStart_toEndOf="@+id/business_is_open_text"
+            app:layout_constraintTop_toBottomOf="@+id/business_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{business.getTodayOpeningHoursString(), default="10:00 - 17:00"}'
+            android:textColor='@{business.isOpen ? @color/business_fragment_text_color : @color/business_fragment_closed_text_color, default=@color/business_fragment_text_color}'
+            android:layout_margin="8dp"/>
+
+        <ImageView
+            android:id="@+id/people_img_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/people_separated_sized"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/business_hours_title"
+            android:layout_margin="8dp"
+            android:visibility="@{business.crowdLevel >= 1 ? View.VISIBLE : View.INVISIBLE}"/>
+
+        <ImageView
+            android:id="@+id/people_img_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/people_separated_sized"
+            app:layout_constraintTop_toBottomOf="@+id/business_hours_title"
+            app:layout_constraintStart_toEndOf="@+id/people_img_1"
+            android:layout_margin="8dp"
+            android:visibility="@{business.crowdLevel >= 2 ? View.VISIBLE : View.INVISIBLE}"/>
+
+        <ImageView
+            android:id="@+id/people_img_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/people_separated_sized"
+            app:layout_constraintTop_toBottomOf="@+id/business_hours_title"
+            app:layout_constraintStart_toEndOf="@+id/people_img_2"
+            android:layout_margin="8dp"
+            android:visibility="@{business.crowdLevel >= 3 ? View.VISIBLE : View.INVISIBLE}"/>
+
+        <ImageView
+            android:id="@+id/people_img_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/people_separated_sized"
+            app:layout_constraintTop_toBottomOf="@+id/business_hours_title"
+            app:layout_constraintStart_toEndOf="@+id/people_img_3"
+            android:layout_margin="8dp"
+            android:visibility="@{business.crowdLevel >= 4 ? View.VISIBLE : View.INVISIBLE}"/>
+
+        <ImageView
+            android:id="@+id/people_img_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/people_separated_sized"
+            app:layout_constraintTop_toBottomOf="@+id/business_hours_title"
+            app:layout_constraintStart_toEndOf="@+id/people_img_4"
+            android:layout_margin="8dp"
+            android:visibility="@{business.crowdLevel == 5 ? View.VISIBLE : View.INVISIBLE}"/>
+
+        <TextView
+            android:id="@+id/curr_costumers"
+            app:layout_constraintStart_toEndOf="@+id/people_img_5"
+            app:layout_constraintTop_toBottomOf="@+id/business_hours_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{String.format("%d Costumers,", business.crowdCount), default="22 Costumers,"}'
+            android:textColor="@color/business_fragment_text_color"
+            android:layout_margin="5dp"/>
+        <TextView
+            android:id="@+id/expected_costumers"
+            app:layout_constraintStart_toEndOf="@+id/people_img_5"
+            app:layout_constraintTop_toBottomOf="@+id/curr_costumers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{String.format("%d expected", business.expectedCrowdCount), default="30 expected"}'
+            android:textColor="@color/business_fragment_text_color"
+            android:layout_margin="5dp"/>
+
+        <lecho.lib.hellocharts.view.LineChartView
+            android:id="@+id/trend_graph"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            app:layout_constraintStart_toEndOf="@+id/curr_costumers"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/business_hours_title"
+            app:layout_constraintWidth_percent="0.18"
+            android:layout_margin="5dp"/>
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

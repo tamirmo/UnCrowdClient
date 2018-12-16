@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".alternatives.AlternativesActivity">
+
+    <fragment
+        android:id="@+id/businesses_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHeight_percent="0.6"
+        android:name="tamirmo.uncrowd.businesses.list.BusinessesFragment"
+        android:layout_margin="8dp"/>
+
+    <View
+        android:id="@+id/original_business_line"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:background="@color/alternative_separator_line"
+        app:layout_constraintTop_toBottomOf="@+id/businesses_fragment"
+        android:layout_margin="8dp"/>
+
+    <TextView
+        android:id="@+id/alternatives_to_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/alternatives_to"
+        android:textSize="15sp"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/original_business_line" />
+
+    <tamirmo.uncrowd.business.view.BusinessView
+        android:id="@+id/original_business_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alternatives_to_text_view"
+        app:layout_constraintHeight_percent="0.5"
+        android:layout_margin="8dp"/>
+
+</android.support.constraint.ConstraintLayout>

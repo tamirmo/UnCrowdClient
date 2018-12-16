@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="tamirmo.uncrowd.search.AdvancedSearchViewModel"/>
+    </data>
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".search.AdvancedSearchActivity"
+        tools:showIn="@layout/activity_advanced_search">
+
+        <EditText
+            android:id="@+id/business_name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="8dp"
+            android:hint="@string/advanced_search_name_hint"
+            android:autofillHints="@string/advanced_search_name_hint"
+            android:inputType="text"
+            android:text="@={viewModel.name}"/>
+
+        <TextView
+            android:id="@+id/business_radius_header_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="@string/advanced_search_radius_name_text_view"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/business_name_edit_text"
+            app:layout_constraintVertical_bias="0.5"
+            android:textColor="@color/advanced_search_title_text_color"/>
+        <View
+            android:id="@+id/business_radius_header_line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/advanced_search_title_line_color"
+            app:layout_constraintTop_toBottomOf="@+id/business_radius_header_text_view"
+            android:layout_margin="8dp"/>
+
+        <TextView
+            android:id="@+id/business_selected_radius_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/business_radius_header_line"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:textSize="18sp"
+            android:layout_margin="8dp"
+            android:text='@{String.format("%d %s", viewModel.radius, @string/km),default="70 km"}'/>
+
+        <SeekBar
+            android:id="@+id/business_radius_seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/business_selected_radius_text_view"
+            android:layout_margin="8dp"
+            android:min="@integer/advanced_search_radius_min"
+            android:max="@integer/advanced_search_radius_max"
+            android:progress="@={viewModel.radius}"/>
+
+        <TextView
+            android:id="@+id/business_radius_min_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/business_radius_seek_bar"
+            android:text='@{String.format("%d %s", @integer/advanced_search_radius_min, @string/km), default="0 KM"}'
+            android:layout_margin="8dp"/>
+
+        <TextView
+            android:id="@+id/business_radius_max_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/business_radius_seek_bar"
+            android:text='@{String.format("%d %s", @integer/advanced_search_radius_max, @string/km), default="50 KM"}'
+            android:layout_margin="8dp"/>
+
+
+        <TextView
+            android:id="@+id/business_type_header_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="@string/advanced_search_type_name_text_view"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/business_radius_min_text_view"
+            app:layout_constraintVertical_bias="0.5"
+            android:textColor="@color/advanced_search_title_text_color"/>
+        <View
+            android:id="@+id/business_type_header_line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/advanced_search_title_line_color"
+            app:layout_constraintTop_toBottomOf="@+id/business_type_header_text_view"
+            android:layout_margin="8dp"/>
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/business_type_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/advanced_search_type_hint"
+            app:layout_constraintTop_toBottomOf="@+id/business_type_header_line"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="8dp"
+            android:dropDownAnchor="@+id/selected_business_types_list"/>
+        <TextView
+            android:id="@+id/selected_business_types_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="@string/advanced_search_selected_types_text_view"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/business_type_text_view"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/selected_business_types_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/selected_business_types_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="8dp"/>
+
+        <ImageButton
+            android:id="@+id/advanced_search_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_search"
+            android:background="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:layout_margin="8dp"/>
+    </android.support.constraint.ConstraintLayout>
+</layout>
