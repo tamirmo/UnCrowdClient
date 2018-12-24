@@ -75,12 +75,16 @@ public class AllBusinessesLiveData extends BusinessesLiveData {
                     }
 
                     RestTemplate restTemplate = HttpUtilities.createRestTemplate();
+                    // TODO: Add the user's location
                     final String url2 = HttpUtilities.getBaseServerUrl() + "AllBusinesses/2.5/3.4?size=5&page=0";
 
                     ResponseEntity<tamirmo.uncrowd.data.Business[]> responseEntity2 =
                             restTemplate.getForEntity(url2, tamirmo.uncrowd.data.Business[].class);
 
-                    return new ArrayList<>(Arrays.asList(responseEntity2.getBody()));
+                    List<Business> businesses = new ArrayList<>(Arrays.asList(responseEntity2.getBody()));
+                    UncrowdManager.getInstance().updateBusinesses(businesses);
+
+                    return businesses;
                 } catch (ResourceAccessException ex){
                     ex.printStackTrace();
                     // null indicating a connection error

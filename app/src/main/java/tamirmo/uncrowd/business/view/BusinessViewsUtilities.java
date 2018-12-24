@@ -1,31 +1,29 @@
 package tamirmo.uncrowd.business.view;
 
-import android.graphics.Color;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import lecho.lib.hellocharts.model.Axis;
-import lecho.lib.hellocharts.model.Line;
-import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.view.LineChartView;
 import tamirmo.uncrowd.data.Business;
 import tamirmo.uncrowd.data.CrowdHistory;
 
-public final class BusinessViewsUtilities {
-    public static void showTrendGraph(LineChartView lineChartView, Business business, boolean showYAxis){
-        List<PointValue> yAxisValues = new ArrayList<>();
+final class BusinessViewsUtilities {
+    static void showTrendGraph(LineChart lineChartView, Business business, boolean showYAxis){
+        if(business.getCrowdHistory() != null) {
+            float[] lastCrowdCounts = new float[business.getCrowdHistory().size()];
 
-        float[] lastCrowdCounts = new float[business.getCrowdHistory().size()];
+            int i = 0;
+            for (CrowdHistory crowdHistory : business.getCrowdHistory()) {
+                lastCrowdCounts[i++] = crowdHistory.getCrowdCount();
+            }
 
-        int i = 0;
-        for (CrowdHistory crowdHistory : business.getCrowdHistory()) {
-            lastCrowdCounts[i++] = crowdHistory.getCrowdCount();
-        }
-
-        // If all the last counts are the same the lime will not be visible (LineChartView bug)
-        boolean isCountsTheSame = true;
+            // If all the last counts are the same the lime will not be visible (LineChartView bug)
+        /*boolean isCountsTheSame = true;
         if(lastCrowdCounts.length > 0){
             float firstVal = lastCrowdCounts[0];
             for(float count : lastCrowdCounts){
@@ -38,27 +36,37 @@ public final class BusinessViewsUtilities {
             if(isCountsTheSame){
                 lastCrowdCounts[0] += 1;
             }
-        }
+        }*/
 
 
+            List<Entry> entries = new ArrayList<>();
 
-        for (i = 0; i < lastCrowdCounts.length; i++){
-            yAxisValues.add(new PointValue(i, lastCrowdCounts[i]));
-        }
+            for (i = 0; i < lastCrowdCounts.length; i++) {
 
-        Line line = new Line(yAxisValues).setColor(Color.parseColor("#9C27B0"));
+                // turn your data into Entry objects
+                entries.add(new Entry(business.getCrowdHistory().get(i).getDateTime(), lastCrowdCounts[i]));
+            }
 
-        List<Line> lines = new ArrayList<>();
-        lines.add(line);
+            LineDataSet dataSet = new LineDataSet(entries, null); // add entries to dataset
+            dataSet.setLineWidth(3);
+            //dataSet.setColor();
+            //dataSet.setValueTextColor(...); // styling, ...
 
-        LineChartData data = new LineChartData();
-        data.setLines(lines);
+            lineChartView.getXAxis().setEnabled(false);
+            lineChartView.getXAxis().enableAxisLineDashedLine(0, 0, 0);
+            lineChartView.getXAxis().setLabelCount(lastCrowdCounts.length);
+            lineChartView.setDescription(null);
+            lineChartView.setDrawGridBackground(false);
+            lineChartView.getLegend().setEnabled(false);
+            lineChartView.getAxisLeft().setEnabled(false);
+            lineChartView.getAxisRight().setEnabled(false);
 
-        lineChartView.setLineChartData(data);
+            lineChartView.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+            lineChartView.getXAxis().setEnabled(showYAxis);
 
-        if(showYAxis) {
-            Axis yAxis = new Axis();
-            data.setAxisYLeft(yAxis);
+            LineData lineData = new LineData(dataSet);
+            lineChartView.setData(lineData);
+            lineChartView.invalidate();
         }
     }
 }

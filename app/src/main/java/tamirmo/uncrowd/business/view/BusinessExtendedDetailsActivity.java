@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -63,7 +65,7 @@ public class BusinessExtendedDetailsActivity extends AppCompatActivity implement
         averageDay = findViewById(R.id.average_day);
 
         // Populating the trend graph with the data from the Business object
-        BusinessViewsUtilities.showTrendGraph((LineChartView) findViewById(R.id.trend_graph),
+        BusinessViewsUtilities.showTrendGraph((LineChart) findViewById(R.id.trend_graph),
                 UncrowdManager.getInstance().getSelectedBusiness(),
                 true);
 

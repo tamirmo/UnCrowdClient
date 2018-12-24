@@ -160,7 +160,7 @@
             android:textColor="@color/business_fragment_text_color"
             android:layout_margin="5dp"/>
 
-        <lecho.lib.hellocharts.view.LineChartView
+        <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/trend_graph"
             android:layout_width="0dp"
             android:layout_height="70dp"

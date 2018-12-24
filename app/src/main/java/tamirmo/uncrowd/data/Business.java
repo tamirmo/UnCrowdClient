@@ -241,8 +241,6 @@ public class Business {
                         openingHours.get(i).close % 100));
             }
 
-            prefix = "";
-
             for (int i = 0; i < day - 1; i++){
                 openingHoursString.append(prefix);
                 prefix = "\r\n";

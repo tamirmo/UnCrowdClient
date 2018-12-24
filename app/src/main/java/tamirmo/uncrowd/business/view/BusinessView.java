@@ -5,6 +5,8 @@ import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 
+import com.github.mikephil.charting.charts.LineChart;
+
 import tamirmo.uncrowd.R;
 import tamirmo.uncrowd.data.Business;
 import tamirmo.uncrowd.databinding.BusinessViewBinding;
@@ -14,7 +16,7 @@ import lecho.lib.hellocharts.view.LineChartView;
 public class BusinessView extends ConstraintLayout {
     private BusinessViewBinding binding;
     private Business business;
-    private LineChartView lineChartView;
+    private LineChart lineChartView;
 
     public BusinessView(Context context) {
         super(context);
