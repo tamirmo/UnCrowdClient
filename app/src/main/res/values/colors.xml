@@ -5,6 +5,8 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="business_fragment_text_color">@android:color/black</color>
+    <color name="business_fragment_text_color_worse">@android:color/holo_red_dark</color>
+    <color name="business_fragment_text_color_better">@android:color/holo_green_dark</color>
     <color name="business_fragment_distance_text_color">#D81B60</color>
     <color name="business_fragment_closed_text_color">@android:color/holo_red_dark</color>
     <color name="business_fragment_opened_text_color">@android:color/holo_green_dark</color>

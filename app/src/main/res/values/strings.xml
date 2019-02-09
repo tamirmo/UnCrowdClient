@@ -36,4 +36,7 @@
 
     <string name="empty_businesses_list_error_text">Connection error, are you connected?\nTry refreshing when ready.</string>
     <string name="empty_businesses_list_text">No businesses found</string>
+    <string name="crowd_sort_menu_title">Crowd</string>
+    <string name="location_sort_menu_title">Location</string>
+    <string name="relevance_sort_title">Relevance</string>
 </resources>

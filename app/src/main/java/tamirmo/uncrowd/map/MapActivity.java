@@ -24,6 +24,7 @@ import tamirmo.uncrowd.business.view.BusinessView;
 import tamirmo.uncrowd.R;
 import tamirmo.uncrowd.logic.UncrowdManager;
 import tamirmo.uncrowd.data.Business;
+import tamirmo.uncrowd.utilities.NavigationActivityStarted;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener, View.OnClickListener {
@@ -57,15 +58,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        // Add a marker in Sydney, Australia,
         // Saving the map to change markers after
         this.googleMap = googleMap;
 
         addMarkersToMap();
-
-        // and move the map's camera to the same location.
-
         googleMap.setOnMarkerClickListener(this);
+        googleMap.setMyLocationEnabled(true);
     }
 
     @Override
@@ -158,7 +156,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             Intent detailedBusinessIntent = new Intent(this, BusinessExtendedDetailsActivity.class);
             startActivity(detailedBusinessIntent);
         }else if(v.getId() == R.id.take_me_there_btn){
-            // TODO: Move to navigating application
+            // Forwarding to navigation activity
+            Business business = UncrowdManager.getInstance().getSelectedBusiness();
+            NavigationActivityStarted.startNavigationActivity(this, business.getLat(), business.getLon());
         }
     }
 }

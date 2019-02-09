@@ -42,7 +42,6 @@ public class AdvancedSearchLiveData extends BusinessesLiveData {
         protected List<Business> doInBackground(Void... voids) {
 
             try {
-                // TODO: Load from server
                 if (loadBusinessesWeakReference.get() != null) {
 
                     // Converting the types to one string separated by ','
@@ -60,9 +59,9 @@ public class AdvancedSearchLiveData extends BusinessesLiveData {
                             advancedSearchInput.getName(),
                             advancedSearchInput.getRadius(),
                             // LAT
-                            32.124825,
+                            advancedSearchInput.getCurrUserLocation().getLatitude(),
                             // LON
-                            34.826782);
+                            advancedSearchInput.getCurrUserLocation().getLongitude());
 
                     if (advancedSearchInput.getSelectedTypesList() != null && advancedSearchInput.getSelectedTypesList().size() > 0) {
                         url += "?types=" + typesStringBuilder.toString();

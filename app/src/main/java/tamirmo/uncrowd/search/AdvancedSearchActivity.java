@@ -3,7 +3,9 @@ package tamirmo.uncrowd.search;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,12 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
+import tamirmo.uncrowd.location.LocationHandler;
 import tamirmo.uncrowd.R;
 import tamirmo.uncrowd.businesses.list.BusinessesListActivity;
 import tamirmo.uncrowd.data.BusinessType;
 import tamirmo.uncrowd.databinding.ActivityAdvancedSearchBinding;
 
-public class AdvancedSearchActivity extends AppCompatActivity implements IOnBusinessTypeAdded, IOnBusinessTypeRemoveClick, View.OnClickListener {
+public class AdvancedSearchActivity extends AppCompatActivity implements IOnBusinessTypeAdded, IOnBusinessTypeRemoveClick, View.OnClickListener, LocationHandler.IOnLocationReceived {
 
     private AppCompatAutoCompleteTextView businessTypeTextView;
     private RecyclerView selectedBusinessTypesRecyclerView;
@@ -54,11 +57,11 @@ public class AdvancedSearchActivity extends AppCompatActivity implements IOnBusi
         binding.setViewModel(this.viewModel);
 
         findViewById(R.id.advanced_search_btn).setOnClickListener(this);
+        LocationHandler.getInstance().getCurrLocation(this);
     }
 
     @Override
     public void onBusinessTypeAdded(BusinessType typeSelected) {
-        // TODO: Add to view model and update the list of filters
         // Clearing the text for the next type
         businessTypeTextView.setText("");
         typesTextViewAdapter.notifyDataSetChanged();
@@ -82,9 +85,23 @@ public class AdvancedSearchActivity extends AppCompatActivity implements IOnBusi
         if(v.getId() == R.id.advanced_search_btn){
             // Starting the search results activity to perform the search and display the results:
             Intent intent = new Intent(this, BusinessesListActivity.class);
+
+            // Creating the input of the search with the last known device location:
+            AdvancedSearchInput asi = viewModel.toAdvancedSearchInput();
+            asi.setCurrUserLocation(LocationHandler.getInstance().getLastLocation());
+
             // Passing the search results activity the search input
-            intent.putExtra(BusinessesListActivity.ADVANCED_SEARCH_INPUT_KEY, viewModel.toAdvancedSearchInput());
+            intent.putExtra(BusinessesListActivity.ADVANCED_SEARCH_INPUT_KEY, asi);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onLocationReceived(Location lastLocation) {}
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        LocationHandler.getInstance().onRequestPermissionsResult(this, requestCode, grantResults);
     }
 }

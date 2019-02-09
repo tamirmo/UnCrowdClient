@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <item android:id="@+id/action_search"
         android:title="@android:string/search_go"
         android:icon="@android:drawable/ic_menu_search"
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView" />
-
-    <item android:id="@+id/action_settings"
-        android:title="@android:string/search_go"
-        android:icon="@android:drawable/ic_menu_preferences"
-        app:showAsAction="ifRoom|collapseActionView"/>
 
     <item android:id="@+id/action_sort"
         android:title="@android:string/search_go"
@@ -22,6 +16,8 @@
                 android:title="@string/location_sort_menu_title" />
             <item android:id="@+id/action_sort_crowded"
                 android:title="@string/crowd_sort_menu_title" />
+            <item android:id="@+id/action_sort_relevance"
+                android:title="@string/relevance_sort_title" />
         </menu>
     </item>
 </menu>

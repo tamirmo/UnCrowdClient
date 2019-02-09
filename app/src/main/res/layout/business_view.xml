@@ -5,6 +5,7 @@
             name="business"
             type="tamirmo.uncrowd.data.Business"/>
         <import type="android.view.View"/>
+        <import type="tamirmo.uncrowd.data.Business.AlternativeRelation"/>
     </data>
     <android.support.constraint.ConstraintLayout
         xmlns:tools="http://schemas.android.com/tools"
@@ -21,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text='@{business.name, default="Toys R Us"}'
-            android:textColor="@color/business_fragment_text_color"
+            android:textColor='@{business.alternativaRelation == AlternativeRelation.SAME ? @color/business_fragment_text_color : business.alternativaRelation == AlternativeRelation.WORSE ? @color/business_fragment_text_color_worse : @color/business_fragment_text_color_better, default=@color/business_fragment_text_color}'
             android:textSize="18sp"
             android:paddingBottom="13dp"
             android:layout_marginStart="8dp"

@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import tamirmo.uncrowd.location.LocationHandler;
 import tamirmo.uncrowd.R;
 import tamirmo.uncrowd.data.Business;
 
@@ -185,6 +186,14 @@ public class BusinessesFragment extends Fragment implements SwipeRefreshLayout.O
             }
         }, 1000);*/
 
+    }
+
+    public void sortByLocation(LocationHandler locationHandler) {
+        model.sortByLocation(locationHandler);
+    }
+
+    public void sortByCrowd() {
+        model.sortByCrowd();
     }
 
     /**

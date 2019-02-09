@@ -1,5 +1,6 @@
 package tamirmo.uncrowd.search;
 
+import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -10,6 +11,7 @@ public class AdvancedSearchInput implements Parcelable {
     private List<Long> selectedTypesList;
     private int radius;
     private String name;
+    private Location currUserLocation;
 
     public List<Long> getSelectedTypesList() {
         return selectedTypesList;
@@ -35,6 +37,14 @@ public class AdvancedSearchInput implements Parcelable {
         this.name = name;
     }
 
+    public Location getCurrUserLocation() {
+        return currUserLocation;
+    }
+
+    public void setCurrUserLocation(Location currUserLocation) {
+        this.currUserLocation = currUserLocation;
+    }
+
     AdvancedSearchInput(List<Long> selectedTypesList, int radius, String name){
         this.selectedTypesList = selectedTypesList;
         this.radius = radius;
@@ -55,6 +65,8 @@ public class AdvancedSearchInput implements Parcelable {
                 this.selectedTypesList.add(Long.parseLong(type));
             }
         }
+
+        this.currUserLocation = parcel.readParcelable(Location.class.getClassLoader());
     }
 
     @Override
@@ -76,6 +88,7 @@ public class AdvancedSearchInput implements Parcelable {
         dest.writeString(selectedTypes.toString());
         dest.writeInt(radius);
         dest.writeString(name);
+        dest.writeParcelable(currUserLocation, 0);
     }
 
     // Used when un-parceling our parcel (creating the object)

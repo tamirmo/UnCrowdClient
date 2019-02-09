@@ -4,9 +4,15 @@ import android.databinding.ObservableDouble;
 import android.databinding.ObservableInt;
 
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 
+import tamirmo.uncrowd.location.LocationUtils;
+
 public class Business {
+    //
+    public enum AlternativeRelation {BETTER, SAME, WORSE}
+
     Long id;
     String name;
     String address;
@@ -19,8 +25,6 @@ public class Business {
     // expectedCrowdCount
     ObservableInt expectedCrowdCount;
     ObservableDouble distance;
-    // TODO:
-    //List<UpdateFromBusiness> lastUpdate;
     List<Average> averages;
     // The last couple of samples
     List<CrowdHistory> crowdHistory;
@@ -31,6 +35,9 @@ public class Business {
     private int crowdCountTime;
     private int expectedCountTime;
 
+    // Indicating the relation of the this business to the original one
+    // (which this business is an alternative for)
+    private AlternativeRelation alternativaRelation = AlternativeRelation.SAME;
 
     public Business(){
         this.crowdLevel = new ObservableInt();
@@ -167,6 +174,14 @@ public class Business {
         this.expectedCountTime = expectedCountTime;
     }
 
+    public AlternativeRelation getAlternativaRelation() {
+        return alternativaRelation;
+    }
+
+    public void setAlternativaRelation(AlternativeRelation alternativaRelation) {
+        this.alternativaRelation = alternativaRelation;
+    }
+
     // Indicating if the business is open at the moment
     public boolean isOpen() {
         boolean isOpen = false;
@@ -257,7 +272,6 @@ public class Business {
     public boolean containsSearchPhrase(String searchPhrase){
         return this.name.toLowerCase().contains(searchPhrase.toLowerCase()) ||
                 this.address.toLowerCase().contains(searchPhrase.toLowerCase());
-
     }
 
     @Override
@@ -269,5 +283,29 @@ public class Business {
             }
         }
         return isEqual;
+    }
+
+    public static class BusinessCrowdComparator implements Comparator<Business> {
+        @Override
+        public int compare(Business business1, Business business2) {
+            return business1.crowdLevel.get() - business2.crowdLevel.get();
+        }
+    }
+
+    public static class BusinessLocationComparator implements Comparator<Business> {
+
+        private double userLat;
+        private double userLon;
+
+        public BusinessLocationComparator(double lat, double lon){
+            this.userLat = lat;
+            this.userLon = lon;
+        }
+
+        @Override
+        public int compare(Business business1, Business business2) {
+            return (int)(-LocationUtils.distance(userLat, business2.lat, userLon, business2.lon,0 ,0 ) +
+                            LocationUtils.distance(userLat, business1.lat, userLon, business1.lon,0 ,0 ));
+        }
     }
 }

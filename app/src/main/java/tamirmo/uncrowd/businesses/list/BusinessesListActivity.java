@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import tamirmo.uncrowd.location.LocationHandler;
 import tamirmo.uncrowd.R;
 import tamirmo.uncrowd.business.view.BusinessExtendedDetailsActivity;
 import tamirmo.uncrowd.data.Business;
@@ -47,6 +48,9 @@ public class BusinessesListActivity extends AppCompatActivity implements Busines
         // Checking which list of businesses to load
         actUponIntent(getIntent());
 
+        LocationHandler.getInstance().init(this);
+        LocationHandler.getInstance().getCurrLocation(null);
+
         // Pulling the saved server ip from shared preferences
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         UncrowdManager.getInstance().setServerIp(sharedPref.getString(SERVER_IP_KEY, "10.100.102.2"));
@@ -59,7 +63,6 @@ public class BusinessesListActivity extends AppCompatActivity implements Busines
     private void actUponIntent(Intent intent){
         BusinessesFragmentViewModel model =
                 ViewModelProviders.of(this).get(BusinessesFragmentViewModel.class);
-        // TODO: Show loading
 
         boolean isAdvancedSearchIntent = false;
 
@@ -73,7 +76,6 @@ public class BusinessesListActivity extends AppCompatActivity implements Busines
                 model.getAdvancedSearchBusinesses(advancedSearchInput).observe(this, new Observer<List<Business>>() {
                     @Override
                     public void onChanged(@Nullable List<Business> businesses) {
-                        // TODO: Stop loading
                         Toast.makeText(getApplicationContext(),"onChanged from search", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -86,7 +88,6 @@ public class BusinessesListActivity extends AppCompatActivity implements Busines
             model.getAllBusinesses().observe(this, new Observer<List<Business>>() {
                 @Override
                 public void onChanged(@Nullable List<Business> businesses) {
-                    // TODO: Stop loading
                     Toast.makeText(getApplicationContext(),"onChanged from all", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -116,7 +117,7 @@ public class BusinessesListActivity extends AppCompatActivity implements Busines
 
         searchView.setOnQueryTextListener(this);
 
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
@@ -124,6 +125,12 @@ public class BusinessesListActivity extends AppCompatActivity implements Busines
         switch (item.getItemId()) {
             case R.id.action_settings:
                 displayAppSettings();
+                return true;
+            case R.id.action_sort_crowded:
+                businessesFragment.sortByCrowd();
+                return true;
+            case R.id.action_sort_location:
+                businessesFragment.sortByLocation(LocationHandler.getInstance());
                 return true;
             default:
                 // If we got here, the user's action was not recognized.

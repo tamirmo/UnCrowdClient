@@ -97,11 +97,13 @@ public class BusinessRecyclerViewAdapter extends RecyclerView.Adapter<BusinessRe
         if(searchPhrase == null || searchPhrase.equals("")){
             this.mFilteredIndexes = null;
         }else{
-            this.mFilteredIndexes = new ArrayList<>();
-            ListIterator<Business> iterator = this.businesses.listIterator();
-            while (iterator.hasNext()){
-                if (iterator.next().containsSearchPhrase(searchPhrase)){
-                    this.mFilteredIndexes.add(iterator.nextIndex() - 1);
+            if(this.businesses != null) {
+                this.mFilteredIndexes = new ArrayList<>();
+                ListIterator<Business> iterator = this.businesses.listIterator();
+                while (iterator.hasNext()) {
+                    if (iterator.next().containsSearchPhrase(searchPhrase)) {
+                        this.mFilteredIndexes.add(iterator.nextIndex() - 1);
+                    }
                 }
             }
         }

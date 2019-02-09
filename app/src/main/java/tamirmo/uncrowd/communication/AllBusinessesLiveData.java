@@ -37,28 +37,8 @@ public class AllBusinessesLiveData extends BusinessesLiveData {
 
         @Override
         protected List<Business> doInBackground(Void... voids) {
-            /*try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }*/
 
-            // TODO: Load from server
             if(loadBusinessesWeakReference.get() != null) {
-                /*List<Business> list = new ArrayList<>();
-                Business b = new Business();
-                b.setName("Toys R Us");
-                b.setLat(32.114825);
-                b.setLon(34.816782);
-                list.add(b);
-
-                b = new Business();
-                b.setName("Red Pirate");
-                b.setLat(32.113587);
-                b.setLon(34.817685);
-                list.add(b);
-
-                UncrowdManager.getInstance().updateBusinesses(list);*/
 
                 try {
 

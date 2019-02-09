@@ -32,6 +32,7 @@ import tamirmo.uncrowd.databinding.ActivityExtendedBusinessBinding;
 
 import tamirmo.uncrowd.data.Business;
 import tamirmo.uncrowd.logic.UncrowdManager;
+import tamirmo.uncrowd.utilities.NavigationActivityStarted;
 
 public class BusinessExtendedDetailsActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
@@ -109,7 +110,11 @@ public class BusinessExtendedDetailsActivity extends AppCompatActivity implement
                     Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1 == currAverageDay);
         }
         else if(v.getId() == R.id.on_my_way_btn){
-            // TODO: Intent navigation & start service with notification
+            // Forwarding to navigation activity:
+            Business business = UncrowdManager.getInstance().getSelectedBusiness();
+            NavigationActivityStarted.startNavigationActivity(this, business.getLat(), business.getLon());
+
+            // TODO: Start service with notification
         }
         else if(v.getId() == R.id.alternatives_btn){
             Intent alternativesIntent = new Intent(this, AlternativesActivity.class);

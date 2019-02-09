@@ -7,11 +7,8 @@ import android.view.LayoutInflater;
 
 import com.github.mikephil.charting.charts.LineChart;
 
-import tamirmo.uncrowd.R;
 import tamirmo.uncrowd.data.Business;
 import tamirmo.uncrowd.databinding.BusinessViewBinding;
-
-import lecho.lib.hellocharts.view.LineChartView;
 
 public class BusinessView extends ConstraintLayout {
     private BusinessViewBinding binding;
@@ -36,7 +33,7 @@ public class BusinessView extends ConstraintLayout {
     private void init(Context context) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         binding = BusinessViewBinding.inflate(layoutInflater, this, true);
-        lineChartView = binding.getRoot().findViewById(R.id.trend_graph);
+        lineChartView = binding.trendGraph;
     }
 
     public void setBusiness(Business business){

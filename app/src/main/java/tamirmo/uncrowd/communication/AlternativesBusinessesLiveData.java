@@ -3,60 +3,78 @@ package tamirmo.uncrowd.communication;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestTemplate;
+
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import tamirmo.uncrowd.data.Business;
 
 public class AlternativesBusinessesLiveData extends BusinessesLiveData {
-    private long originalBusinessId;
+    private Business originalBusiness;
 
-    public AlternativesBusinessesLiveData(Context context, long originalBusinessId) {
+    public AlternativesBusinessesLiveData(Context context, Business originalBusiness) {
         super(context);
-        this.originalBusinessId = originalBusinessId;
+        this.originalBusiness = originalBusiness;
     }
 
     @Override
     public void loadBusinesses() {
-        new LoadAlternativesTask(this, originalBusinessId).execute();
+        new LoadAlternativesTask(this, originalBusiness).execute();
     }
 
     private static class LoadAlternativesTask extends AsyncTask<Void,Void,List<Business>> {
 
         WeakReference<AlternativesBusinessesLiveData> loadBusinessesWeakReference;
-        long originalBusinessId;
+        Business originalBusiness;
 
-        LoadAlternativesTask(AlternativesBusinessesLiveData loadBusinesses, long originalBusinessId){
+        LoadAlternativesTask(AlternativesBusinessesLiveData loadBusinesses, Business originalBusiness){
             this.loadBusinessesWeakReference = new WeakReference<>(loadBusinesses);
-            this.originalBusinessId = originalBusinessId;
+            this.originalBusiness = originalBusiness;
         }
 
         @Override
         protected List<Business> doInBackground(Void... voids) {
 
             try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                // TODO: Load from server
+                if (loadBusinessesWeakReference.get() != null) {
+
+                    String url = HttpUtilities.getBaseServerUrl() + String.format("Alternatives/%d/",
+                            originalBusiness.getId());
+
+                    RestTemplate restTemplate = HttpUtilities.createRestTemplate();
+
+                    ResponseEntity<Business[]> responseEntity =
+                            restTemplate.getForEntity(url, tamirmo.uncrowd.data.Business[].class);
+
+                    List<Business> alternatives = new ArrayList<>(Arrays.asList(responseEntity.getBody()));
+
+                    for(Business business : alternatives){
+                        if (business.getCrowdLevel() < this.originalBusiness.getCrowdLevel()) {
+                            business.setAlternativaRelation(Business.AlternativeRelation.BETTER);
+                        }else if (business.getCrowdLevel() > this.originalBusiness.getCrowdLevel()) {
+                            business.setAlternativaRelation(Business.AlternativeRelation.WORSE);
+                        } else {
+                            business.setAlternativaRelation(Business.AlternativeRelation.SAME);
+                        }
+                    }
+                    return alternatives;
+                }
+            } catch (ResourceAccessException ex){
+                ex.printStackTrace();
+                // null indicating a connection error
+                return null;
             }
-
-            // TODO: Load from server
-            if(loadBusinessesWeakReference.get() != null){
-                /*List<Business> list = new ArrayList<>();
-                Business b = new Business();
-                b.setName("Alternative 1");
-                b.setLat(32.114825);
-                b.setLon(34.816782);
-                list.add(b);
-
-                b = new Business();
-                b.setName("Alternative 2");
-                b.setLat(32.113587);
-                b.setLon(34.817685);
-                list.add(b);
-
-                UncrowdManager.getInstance().updateBusinesses(list);
-                return list;*/
+            catch(Exception ex) {
+                ex.printStackTrace();
+                // TODO: Differentiate connection error and this error
+                // null indicating an error
+                return null;
             }
             return null;
         }
