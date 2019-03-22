@@ -24,7 +24,6 @@ import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.view.ColumnChartView;
-import lecho.lib.hellocharts.view.LineChartView;
 import tamirmo.uncrowd.R;
 import tamirmo.uncrowd.alternatives.AlternativesActivity;
 import tamirmo.uncrowd.data.Average;
@@ -32,9 +31,12 @@ import tamirmo.uncrowd.databinding.ActivityExtendedBusinessBinding;
 
 import tamirmo.uncrowd.data.Business;
 import tamirmo.uncrowd.logic.UncrowdManager;
+import tamirmo.uncrowd.service.TrackBusinessService;
 import tamirmo.uncrowd.utilities.NavigationActivityStarted;
 
 public class BusinessExtendedDetailsActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+
+    public static final String BUSINESS_ID = "BUSINESS_ID";
 
     private ImageButton expand;
     private ImageButton collapse;
@@ -42,6 +44,7 @@ public class BusinessExtendedDetailsActivity extends AppCompatActivity implement
     private ColumnChartView averagesGraph;
     private TextView averageDay;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private Business business;
 
     private int currAverageDay;
 
@@ -65,9 +68,15 @@ public class BusinessExtendedDetailsActivity extends AppCompatActivity implement
 
         averageDay = findViewById(R.id.average_day);
 
+        long businessId = getIntent().getLongExtra(BUSINESS_ID, 0);
+
+        if (UncrowdManager.getInstance().getBusinessesMap().get(businessId) != null) {
+            business = UncrowdManager.getInstance().getBusinessesMap().get(businessId);
+        }
+
         // Populating the trend graph with the data from the Business object
         BusinessViewsUtilities.showTrendGraph((LineChart) findViewById(R.id.trend_graph),
-                UncrowdManager.getInstance().getSelectedBusiness(),
+                business,
                 true);
 
         averagesGraph = findViewById(R.id.averages_graph);
@@ -111,20 +120,22 @@ public class BusinessExtendedDetailsActivity extends AppCompatActivity implement
         }
         else if(v.getId() == R.id.on_my_way_btn){
             // Forwarding to navigation activity:
-            Business business = UncrowdManager.getInstance().getSelectedBusiness();
             NavigationActivityStarted.startNavigationActivity(this, business.getLat(), business.getLon());
 
             // TODO: Start service with notification
+            Intent intent = new Intent(this, TrackBusinessService.class);
+            intent.setAction(TrackBusinessService.ACTION_START_FOREGROUND_SERVICE);
+            intent.putExtra(TrackBusinessService.BUSINESS_ID_EXTRA, business.getId());
+            startService(intent);
         }
         else if(v.getId() == R.id.alternatives_btn){
             Intent alternativesIntent = new Intent(this, AlternativesActivity.class);
+            alternativesIntent.putExtra(AlternativesActivity.BUSINESS_ID, business.getId());
             startActivity(alternativesIntent);
-
         }
     }
 
     private void setDayAverage(ColumnChartView chart, int day, boolean highlightCurrHour) {
-        Business selectedBusiness = UncrowdManager.getInstance().getSelectedBusiness();
 
         // Getting the averages array for the given day:
 
@@ -132,7 +143,7 @@ public class BusinessExtendedDetailsActivity extends AppCompatActivity implement
         List<Integer> dayAveragesList = new ArrayList<>();
 
         // Creating a list of averages of the given day only:
-        for(Average average : selectedBusiness.getAverages()){
+        for(Average average : business.getAverages()){
             if(average.getDay() == day){
                 dayAveragesList.add(average.getAverage());
             }
@@ -143,8 +154,8 @@ public class BusinessExtendedDetailsActivity extends AppCompatActivity implement
         dayAveragesList.toArray(dayAverages);
 
         // Calculating the hours the business is open in the given day
-        int openingHour = selectedBusiness.getOpeningHours().get(day).getOpen() / 100;
-        int closingHour = selectedBusiness.getOpeningHours().get(day).getClose() / 100;
+        int openingHour = business.getOpeningHours().get(day).getOpen() / 100;
+        int closingHour = business.getOpeningHours().get(day).getClose() / 100;
 
         // Column can have many subcolumns, here by default I use 1 subcolumn in each of 8 columns.
         List<Column> columns = new ArrayList<>();

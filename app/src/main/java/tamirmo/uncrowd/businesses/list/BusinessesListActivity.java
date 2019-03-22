@@ -105,6 +105,7 @@ public class BusinessesListActivity extends AppCompatActivity implements Busines
     public void onBusinessListItemClicked(Business businessSelected) {
         UncrowdManager.getInstance().setSelectedBusiness(businessSelected);
         Intent detailedBusinessIntent = new Intent(this, BusinessExtendedDetailsActivity.class);
+        detailedBusinessIntent.putExtra(BusinessExtendedDetailsActivity.BUSINESS_ID, businessSelected.getId());
         startActivity(detailedBusinessIntent);
     }
 

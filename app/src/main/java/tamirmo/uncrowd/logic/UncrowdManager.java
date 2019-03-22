@@ -99,4 +99,8 @@ public class UncrowdManager {
             }
         }
     }
+
+    public void updateBusiness(Business business) {
+        this.businessesMap.put(business.getId(), business);
+    }
 }

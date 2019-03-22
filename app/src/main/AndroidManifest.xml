@@ -40,6 +40,14 @@
         <activity
             android:name=".alternatives.AlternativesActivity"
             android:label="@string/title_activity_alternatives" />
+
+        <service android:name=".service.TrackBusinessService" />
+
+        <receiver
+            android:name=".service.EndBroadcastReceiver"
+            android:enabled="true"
+            android:process=":remote" />
+
     </application>
 
 </manifest>

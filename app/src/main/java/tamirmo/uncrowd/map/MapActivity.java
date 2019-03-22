@@ -151,13 +151,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onClick(View v) {
+        Business business = UncrowdManager.getInstance().getSelectedBusiness();
         if(v.getId() == R.id.selected_business_view){
             // Moving to the detailed view
             Intent detailedBusinessIntent = new Intent(this, BusinessExtendedDetailsActivity.class);
+            detailedBusinessIntent.putExtra(BusinessExtendedDetailsActivity.BUSINESS_ID, business.getId());
             startActivity(detailedBusinessIntent);
         }else if(v.getId() == R.id.take_me_there_btn){
             // Forwarding to navigation activity
-            Business business = UncrowdManager.getInstance().getSelectedBusiness();
             NavigationActivityStarted.startNavigationActivity(this, business.getLat(), business.getLon());
         }
     }

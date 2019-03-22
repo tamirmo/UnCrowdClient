@@ -39,4 +39,11 @@
     <string name="crowd_sort_menu_title">Crowd</string>
     <string name="location_sort_menu_title">Location</string>
     <string name="relevance_sort_title">Relevance</string>
+
+    <string name="notification_action_end">END</string>
+    <string name="notification_action_switch">SWITCH</string>
+
+    <string name="notification_neutral_notification">Crowd is the same as originally was.</string>
+    <string name="notification_worst_notification">Getting crowded. %d inside (originally %d).</string>
+    <string name="notification_better_notification">Getting better ! %d inside (originally %d).</string>
 </resources>

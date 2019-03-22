@@ -25,6 +25,8 @@ import tamirmo.uncrowd.data.Business;
 
 public class AlternativesActivity extends AppCompatActivity implements BusinessesFragment.OnBusinessListItemClickedListener, SearchView.OnQueryTextListener, View.OnClickListener {
 
+    public static final String BUSINESS_ID = "BUSINESS_ID";
+
     private BusinessesFragment businessesFragment;
     // The business to calculate alternatives
     private Business originalBusiness;
@@ -36,7 +38,11 @@ public class AlternativesActivity extends AppCompatActivity implements Businesse
         businessesFragment = (BusinessesFragment) getSupportFragmentManager().findFragmentById(R.id.businesses_fragment);
         BusinessView businessView = findViewById(R.id.original_business_view);
 
-        originalBusiness = UncrowdManager.getInstance().getSelectedBusiness();
+        long businessId = getIntent().getLongExtra(BUSINESS_ID, 0);
+
+        if (UncrowdManager.getInstance().getBusinessesMap().get(businessId) != null) {
+            originalBusiness = UncrowdManager.getInstance().getBusinessesMap().get(businessId);
+        }
 
         // Setting the original business as the selected one
         businessView.setBusiness(originalBusiness);
@@ -58,6 +64,7 @@ public class AlternativesActivity extends AppCompatActivity implements Businesse
     public void onBusinessListItemClicked(Business businessSelected) {
         UncrowdManager.getInstance().setSelectedBusiness(businessSelected);
         Intent detailedBusinessIntent = new Intent(this, BusinessExtendedDetailsActivity.class);
+        detailedBusinessIntent.putExtra(BusinessExtendedDetailsActivity.BUSINESS_ID, businessSelected.getId());
         startActivity(detailedBusinessIntent);
     }
 
