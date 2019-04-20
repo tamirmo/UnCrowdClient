@@ -5,15 +5,11 @@ import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 
-import com.github.mikephil.charting.charts.LineChart;
-
 import tamirmo.uncrowd.data.Business;
 import tamirmo.uncrowd.databinding.BusinessViewBinding;
 
 public class BusinessView extends ConstraintLayout {
     private BusinessViewBinding binding;
-    private Business business;
-    private LineChart lineChartView;
 
     public BusinessView(Context context) {
         super(context);
@@ -33,23 +29,13 @@ public class BusinessView extends ConstraintLayout {
     private void init(Context context) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         binding = BusinessViewBinding.inflate(layoutInflater, this, true);
-        lineChartView = binding.trendGraph;
     }
 
     public void setBusiness(Business business){
-        this.business = business;
 
         if(binding != null){
-            binding.setBusiness(this.business);
+            binding.setBusiness(business);
             binding.executePendingBindings();
-        }
-
-        if(lineChartView != null) {
-            // Populating the trend graph with the data from the Business object
-            // (the graph does not support binding)
-            BusinessViewsUtilities.showTrendGraph(lineChartView,
-                    business,
-                    false);
         }
     }
 }

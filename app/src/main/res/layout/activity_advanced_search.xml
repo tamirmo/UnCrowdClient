@@ -35,25 +35,14 @@
             android:text="@string/advanced_search_radius_name_text_view"
             android:layout_margin="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/business_name_edit_text"
-            app:layout_constraintVertical_bias="0.5"
-            android:textColor="@color/advanced_search_title_text_color"/>
-        <View
-            android:id="@+id/business_radius_header_line"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/advanced_search_title_line_color"
-            app:layout_constraintTop_toBottomOf="@+id/business_radius_header_text_view"
-            android:layout_margin="8dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/business_name_edit_text" />
 
         <TextView
             android:id="@+id/business_selected_radius_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/business_radius_header_line"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toBottomOf="@+id/business_name_edit_text"
             android:textSize="18sp"
             android:layout_margin="8dp"
             android:text='@{String.format("%d %s", viewModel.radius, @string/km),default="70 km"}'/>
@@ -88,31 +77,12 @@
             android:text='@{String.format("%d %s", @integer/advanced_search_radius_max, @string/km), default="50 KM"}'
             android:layout_margin="8dp"/>
 
-
-        <TextView
-            android:id="@+id/business_type_header_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="@string/advanced_search_type_name_text_view"
-            android:layout_margin="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/business_radius_min_text_view"
-            app:layout_constraintVertical_bias="0.5"
-            android:textColor="@color/advanced_search_title_text_color"/>
-        <View
-            android:id="@+id/business_type_header_line"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/advanced_search_title_line_color"
-            app:layout_constraintTop_toBottomOf="@+id/business_type_header_text_view"
-            android:layout_margin="8dp"/>
         <android.support.v7.widget.AppCompatAutoCompleteTextView
             android:id="@+id/business_type_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/advanced_search_type_hint"
-            app:layout_constraintTop_toBottomOf="@+id/business_type_header_line"
+            app:layout_constraintTop_toBottomOf="@+id/business_radius_min_text_view"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_margin="8dp"
             android:dropDownAnchor="@+id/selected_business_types_list"/>
@@ -134,16 +104,50 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="8dp"/>
 
-        <ImageButton
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/advanced_search_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_search"
-            android:background="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            android:layout_margin="8dp"/>
+            android:layout_marginEnd="17dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/advanced_search_button_background">
+
+            <ImageView
+                android:id="@+id/advanced_search_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:srcCompat="@drawable/advanced_search_icon"
+                android:layout_marginTop="1dp"
+                android:duplicateParentState="true"
+                android:clickable="false"/>
+
+            <Button
+                android:id="@+id/advanced_search_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/advanced_search_icon"
+                android:background="@null"
+                android:text="@string/advanced_search_btn_text"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="24sp"
+                android:duplicateParentState="true"
+                android:clickable="false"/>
+        </android.support.constraint.ConstraintLayout>
+
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -1,19 +1,28 @@
 package tamirmo.uncrowd.business.view;
 
+import android.databinding.BindingAdapter;
+import android.os.Build;
+import android.widget.ImageView;
+
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import tamirmo.uncrowd.R;
 import tamirmo.uncrowd.data.Business;
 import tamirmo.uncrowd.data.CrowdHistory;
 
-final class BusinessViewsUtilities {
-    static void showTrendGraph(LineChart lineChartView, Business business, boolean showYAxis){
+public final class BusinessViewsUtilities {
+    static void showTrendGraph(LineChart lineChartView, Business business){
         if(business.getCrowdHistory() != null) {
             float[] lastCrowdCounts = new float[business.getCrowdHistory().size()];
 
@@ -21,23 +30,6 @@ final class BusinessViewsUtilities {
             for (CrowdHistory crowdHistory : business.getCrowdHistory()) {
                 lastCrowdCounts[i++] = crowdHistory.getCrowdCount();
             }
-
-            // If all the last counts are the same the lime will not be visible (LineChartView bug)
-        /*boolean isCountsTheSame = true;
-        if(lastCrowdCounts.length > 0){
-            float firstVal = lastCrowdCounts[0];
-            for(float count : lastCrowdCounts){
-                if(count != firstVal){
-                    isCountsTheSame = false;
-                    break;
-                }
-            }
-
-            if(isCountsTheSame){
-                lastCrowdCounts[0] += 1;
-            }
-        }*/
-
 
             List<Entry> entries = new ArrayList<>();
 
@@ -49,7 +41,15 @@ final class BusinessViewsUtilities {
 
             LineDataSet dataSet = new LineDataSet(entries, null); // add entries to dataset
             dataSet.setLineWidth(3);
-            //dataSet.setColor();
+            dataSet.setValueTextSize(13);
+            dataSet.setColor(0x0541a2, 255);
+            dataSet.setCircleHoleRadius(8);
+            dataSet.setValueFormatter(new IValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                    return String.format("%.0f", value);
+                }
+            });
             //dataSet.setValueTextColor(...); // styling, ...
 
             lineChartView.getXAxis().setEnabled(false);
@@ -62,11 +62,47 @@ final class BusinessViewsUtilities {
             lineChartView.getAxisRight().setEnabled(false);
 
             lineChartView.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-            lineChartView.getXAxis().setEnabled(showYAxis);
+            lineChartView.getXAxis().setEnabled(true);
+
+            lineChartView.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    return (value % 100 < 60) ? String.format("%02d:%02d",(int)(value / 100), (int)(value % 100)) : "";
+                }
+            });
 
             LineData lineData = new LineData(dataSet);
             lineChartView.setData(lineData);
             lineChartView.invalidate();
         }
+    }
+
+    @BindingAdapter("android:src")
+    public static void setImageUri(ImageView view, int crowdLevel) {
+        int drawableId = R.drawable.one_crowd_lvl;
+        switch (crowdLevel) {
+            case 1:
+                drawableId = R.drawable.one_crowd_lvl;
+                break;
+            case 2:
+                drawableId = R.drawable.two_crowd_lvl;
+                break;
+            case 3:
+                drawableId = R.drawable.three_crowd_lvl;
+                break;
+            case 4:
+                drawableId = R.drawable.four_crowd_lvl;
+                break;
+            case 5:
+                drawableId = R.drawable.five_crowd_lvl;
+                break;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            view.setImageDrawable(view.getContext().getResources().getDrawable(drawableId, view.getContext().getTheme()));
+        } else {
+            view.setImageDrawable(view.getContext().getResources().getDrawable(drawableId));
+        }
+
     }
 }

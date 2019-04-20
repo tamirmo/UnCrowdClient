@@ -4,11 +4,11 @@
     <string name="hours_title_text">Hours: </string>
     <string name="opened_business_text"><b>Open</b></string>
     <string name="closed_business_text"><b>Closed</b></string>
-    <string name="types_title_text">Types: </string>
+    <string name="types_title_text">Category: </string>
     <string name="trend_title_text">Trend: </string>
     <string name="averages_title_text">Averages: </string>
-    <string name="on_my_way_btn_text">ON MY WAY!</string>
-    <string name="alternatives_btn_text">ALTERNATIVES</string>
+    <string name="on_my_way_btn_text">On My Way!</string>
+    <string name="alternatives_btn_text">Alternatives</string>
     <string name="title_activity_business_extended_details">Extended Details</string>
     <string-array name="days">
         <item>Sunday</item>
@@ -23,8 +23,8 @@
     <string name="advanced_search_type_name_text_view"><b>Business Types</b></string>
     <string name="advanced_search_radius_name_text_view"><b>Business radius</b></string>
     <string name="advanced_search_selected_types_text_view">Selected Types:</string>
-    <string name="advanced_search_type_hint">Enter type</string>
-    <string name="advanced_search_name_hint">Enter name</string>
+    <string name="advanced_search_type_hint">Store type</string>
+    <string name="advanced_search_name_hint">Store name</string>
     <string name="km">km</string>
     <string name="radius">Radius</string>
 
@@ -46,4 +46,6 @@
     <string name="notification_neutral_notification">Crowd is the same as originally was.</string>
     <string name="notification_worst_notification">Getting crowded. %d inside (originally %d).</string>
     <string name="notification_better_notification">Getting better ! %d inside (originally %d).</string>
+    <string name="advanced_search_btn_text">Advanced search</string>
+    <string name="map_btn_text">Results on Map</string>
 </resources>

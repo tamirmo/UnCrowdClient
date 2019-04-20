@@ -76,11 +76,11 @@ public class BusinessExtendedDetailsActivity extends AppCompatActivity implement
 
         // Populating the trend graph with the data from the Business object
         BusinessViewsUtilities.showTrendGraph((LineChart) findViewById(R.id.trend_graph),
-                business,
-                true);
+                business);
 
         averagesGraph = findViewById(R.id.averages_graph);
 
+        averagesGraph.setZoomEnabled(false);
         currAverageDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1;
         setDayAverage(averagesGraph,
                 currAverageDay,
@@ -136,7 +136,6 @@ public class BusinessExtendedDetailsActivity extends AppCompatActivity implement
     }
 
     private void setDayAverage(ColumnChartView chart, int day, boolean highlightCurrHour) {
-
         // Getting the averages array for the given day:
 
         Integer[] dayAverages;
@@ -189,6 +188,7 @@ public class BusinessExtendedDetailsActivity extends AppCompatActivity implement
 
         Axis axisX = new Axis(axisValues);
         Axis axisY = new Axis();
+        axisY.setHasLines(true);
         data.setAxisXBottom(axisX);
         data.setAxisYLeft(axisY);
 

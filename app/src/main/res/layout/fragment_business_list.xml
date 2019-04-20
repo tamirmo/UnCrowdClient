@@ -16,15 +16,14 @@
             android:textSize="22sp"
             android:textColor="@color/business_fragment_text_color" />
         <android.support.v7.widget.RecyclerView
-            xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/list"
             android:name="tamirmo.uncrowd.BusinessesFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             app:layoutManager="LinearLayoutManager"
             tools:context="tamirmo.uncrowd.businesses.list.BusinessesFragment"
             tools:listitem="@layout/business_view"
@@ -32,7 +31,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="8dp"
             app:layout_constraintHeight_percent="0.3"/>
     </FrameLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

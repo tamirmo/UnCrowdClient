@@ -1,5 +1,7 @@
 package tamirmo.uncrowd.logic;
 
+import android.location.Location;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -7,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import tamirmo.uncrowd.data.Business;
+import tamirmo.uncrowd.location.LocationHandler;
+import tamirmo.uncrowd.location.LocationUtils;
 
 public class UncrowdManager {
     private static final UncrowdManager ourInstance = new UncrowdManager();
@@ -72,11 +76,13 @@ public class UncrowdManager {
         // If the list was not yet initialized
         if(businessesList.size() == 0){
             for(Business business : businesses){
+                setBusinessDistance(business);
                 this.businessesMap.put(business.getId(), business);
                 this.businessesList.add(business);
             }
         }else {
             for (Business business : businesses) {
+                setBusinessDistance(business);
                 businessesMap.put(business.getId(), business);
 
                 // Adding or updating the business on the list:
@@ -101,6 +107,17 @@ public class UncrowdManager {
     }
 
     public void updateBusiness(Business business) {
+        setBusinessDistance(business);
         this.businessesMap.put(business.getId(), business);
+    }
+
+    private void setBusinessDistance(Business business) {
+        Location myLocation = LocationHandler.getInstance().getLastLocation();
+        if (myLocation != null) {
+            double distanceMeters = LocationUtils.distance(business.getLat(), myLocation.getLatitude(),
+                    business.getLon(), myLocation.getLongitude(),
+                    0, 0);
+            business.setDistance(distanceMeters / 1000.0);
+        }
     }
 }

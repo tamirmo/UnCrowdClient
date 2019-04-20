@@ -37,7 +37,7 @@ public class Business {
 
     // Indicating the relation of the this business to the original one
     // (which this business is an alternative for)
-    private AlternativeRelation alternativaRelation = AlternativeRelation.SAME;
+    private AlternativeRelation alternativeRelation = AlternativeRelation.SAME;
 
     public Business(){
         this.crowdLevel = new ObservableInt();
@@ -174,12 +174,12 @@ public class Business {
         this.expectedCountTime = expectedCountTime;
     }
 
-    public AlternativeRelation getAlternativaRelation() {
-        return alternativaRelation;
+    public AlternativeRelation getAlternativeRelation() {
+        return alternativeRelation;
     }
 
-    public void setAlternativaRelation(AlternativeRelation alternativaRelation) {
-        this.alternativaRelation = alternativaRelation;
+    public void setAlternativeRelation(AlternativeRelation alternativaRelation) {
+        this.alternativeRelation = alternativaRelation;
     }
 
     // Indicating if the business is open at the moment

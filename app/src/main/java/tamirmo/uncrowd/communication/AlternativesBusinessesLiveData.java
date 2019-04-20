@@ -56,11 +56,11 @@ public class AlternativesBusinessesLiveData extends BusinessesLiveData {
 
                     for(Business business : alternatives){
                         if (business.getCrowdLevel() < this.originalBusiness.getCrowdLevel()) {
-                            business.setAlternativaRelation(Business.AlternativeRelation.BETTER);
+                            business.setAlternativeRelation(Business.AlternativeRelation.BETTER);
                         }else if (business.getCrowdLevel() > this.originalBusiness.getCrowdLevel()) {
-                            business.setAlternativaRelation(Business.AlternativeRelation.WORSE);
+                            business.setAlternativeRelation(Business.AlternativeRelation.WORSE);
                         } else {
-                            business.setAlternativaRelation(Business.AlternativeRelation.SAME);
+                            business.setAlternativeRelation(Business.AlternativeRelation.SAME);
                         }
                     }
                     return alternatives;
@@ -72,7 +72,6 @@ public class AlternativesBusinessesLiveData extends BusinessesLiveData {
             }
             catch(Exception ex) {
                 ex.printStackTrace();
-                // TODO: Differentiate connection error and this error
                 // null indicating an error
                 return null;
             }
