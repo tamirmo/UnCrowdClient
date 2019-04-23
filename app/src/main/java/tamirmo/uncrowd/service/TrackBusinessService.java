@@ -103,15 +103,15 @@ public class TrackBusinessService extends Service {
 
         notification =
                 new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                        .setSmallIcon(R.drawable.arrow_left)
+                        .setSmallIcon(R.drawable.app_logo_144)
                         .setContentIntent(notificationClickPendingIntent)
                         .setContentTitle(business.getName())
                         // Switch action:
-                        .addAction(R.drawable.common_google_signin_btn_icon_dark,
+                        .addAction(R.drawable.app_logo_144,
                                 getString(R.string.notification_action_switch),
                                 switchPendingIntent)
                         // End action:
-                        .addAction(R.drawable.common_google_signin_btn_icon_dark,
+                        .addAction(R.drawable.app_logo_144,
                                 getString(R.string.notification_action_end),
                                 endPendingIntent);
 
