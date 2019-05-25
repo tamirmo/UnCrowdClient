@@ -29,17 +29,52 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/selected_business_view"
-            app:layout_constraintHeight_percent="0.6"/>
+            app:layout_constraintHeight_percent="0.6" />
 
-        <Button
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/take_me_there_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/take_me_there_btn_text"
+            app:layout_constraintTop_toBottomOf="@id/businesses_map_fragment"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/businesses_map_fragment"
-            android:layout_margin="8dp"/>
+            android:layout_marginEnd="17dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/map_button_background">
 
+            <ImageView
+                android:id="@+id/map_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:srcCompat="@drawable/show_map_icon"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:clickable="false"/>
+
+            <Button
+                android:id="@+id/map_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/map_icon"
+                android:background="@null"
+                android:textColor="#2368d7"
+                android:textAllCaps="false"
+                android:text="@string/take_me_there_btn_text"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="24sp"
+                android:clickable="false"/>
+        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

@@ -32,7 +32,7 @@ import tamirmo.uncrowd.databinding.ActivityExtendedBusinessBinding;
 import tamirmo.uncrowd.data.Business;
 import tamirmo.uncrowd.logic.UncrowdManager;
 import tamirmo.uncrowd.service.TrackBusinessService;
-import tamirmo.uncrowd.utilities.NavigationActivityStarted;
+import tamirmo.uncrowd.utilities.NavigationActivityStarter;
 
 public class BusinessExtendedDetailsActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
@@ -120,9 +120,9 @@ public class BusinessExtendedDetailsActivity extends AppCompatActivity implement
         }
         else if(v.getId() == R.id.on_my_way_btn){
             // Forwarding to navigation activity:
-            NavigationActivityStarted.startNavigationActivity(this, business.getLat(), business.getLon());
+            NavigationActivityStarter.startNavigationActivity(this, business.getLat(), business.getLon());
 
-            // TODO: Start service with notification
+            // Start service with notification to track crowd updates
             Intent intent = new Intent(this, TrackBusinessService.class);
             intent.setAction(TrackBusinessService.ACTION_START_FOREGROUND_SERVICE);
             intent.putExtra(TrackBusinessService.BUSINESS_ID_EXTRA, business.getId());

@@ -32,7 +32,7 @@
 
     <string name="alternatives_to">Alternatives to</string>
 
-    <string name="take_me_there_btn_text">TAKE ME THERE!</string>
+    <string name="take_me_there_btn_text">Take me there!</string>
 
     <string name="empty_businesses_list_error_text">Connection error, are you connected?\nTry refreshing when ready.</string>
     <string name="empty_businesses_list_text">No businesses found</string>
@@ -48,4 +48,5 @@
     <string name="notification_better_notification">Getting better ! %d inside (originally %d).</string>
     <string name="advanced_search_btn_text">Advanced search</string>
     <string name="map_btn_text">Results on Map</string>
+    <string name="map_click_no_businesses">There are no businesses to show on map.</string>
 </resources>

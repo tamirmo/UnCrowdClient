@@ -24,7 +24,8 @@ import tamirmo.uncrowd.business.view.BusinessView;
 import tamirmo.uncrowd.R;
 import tamirmo.uncrowd.logic.UncrowdManager;
 import tamirmo.uncrowd.data.Business;
-import tamirmo.uncrowd.utilities.NavigationActivityStarted;
+import tamirmo.uncrowd.service.TrackBusinessService;
+import tamirmo.uncrowd.utilities.NavigationActivityStarter;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener, View.OnClickListener {
@@ -159,7 +160,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             startActivity(detailedBusinessIntent);
         }else if(v.getId() == R.id.take_me_there_btn){
             // Forwarding to navigation activity
-            NavigationActivityStarted.startNavigationActivity(this, business.getLat(), business.getLon());
+            NavigationActivityStarter.startNavigationActivity(this, business.getLat(), business.getLon());
+
+            // Start service with notification to track crowd updates
+            Intent intent = new Intent(this, TrackBusinessService.class);
+            intent.setAction(TrackBusinessService.ACTION_START_FOREGROUND_SERVICE);
+            intent.putExtra(TrackBusinessService.BUSINESS_ID_EXTRA, business.getId());
+            startService(intent);
         }
     }
 }

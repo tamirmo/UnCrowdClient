@@ -195,8 +195,13 @@ public class BusinessesListActivity extends AppCompatActivity implements Busines
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.map_btn){
-            Intent mapIntent = new Intent(this, MapActivity.class);
-            startActivity(mapIntent);
+            if (UncrowdManager.getInstance().getBusinessesList() != null &&
+                    UncrowdManager.getInstance().getBusinessesList().size() > 0) {
+                Intent mapIntent = new Intent(this, MapActivity.class);
+                startActivity(mapIntent);
+            } else {
+                Toast.makeText(this, R.string.map_click_no_businesses, Toast.LENGTH_LONG).show();
+            }
         }else if (v.getId() == R.id.advanced_search_btn) {
             Intent mapIntent = new Intent(this, AdvancedSearchActivity.class);
             startActivity(mapIntent);
