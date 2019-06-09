@@ -10,7 +10,6 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -55,7 +54,7 @@ public class AlternativesActivity extends AppCompatActivity implements Businesse
         model.getAlternativeBusinesses(originalBusiness).observe(this, new Observer<List<Business>>() {
             @Override
             public void onChanged(@Nullable List<Business> businesses) {
-                Toast.makeText(getApplicationContext(),"onChanged from alternatives", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"onChanged from alternatives", Toast.LENGTH_SHORT).show();
             }
         });
     }

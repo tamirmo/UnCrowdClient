@@ -196,26 +196,30 @@ public class TrackBusinessService extends Service {
 
         @Override
         public void run() {
-            System.out.println("Uncrowd - timer start");
+            try{
+                System.out.println("Uncrowd - timer start");
 
-            String url = HttpUtilities.getBaseServerUrl() + String.format("Businessinfo/%d/",
-                    businessId);
+                String url = HttpUtilities.getBaseServerUrl() + String.format("Businessinfo/%d/",
+                        businessId);
 
-            RestTemplate restTemplate = HttpUtilities.createRestTemplate();
-            ResponseEntity<Business> responseEntity =
-                    restTemplate.getForEntity(url, tamirmo.uncrowd.data.Business.class);
+                RestTemplate restTemplate = HttpUtilities.createRestTemplate();
+                ResponseEntity<Business> responseEntity =
+                        restTemplate.getForEntity(url, tamirmo.uncrowd.data.Business.class);
 
-            // Saving the first query to reference later
-            // (alerting the user the business is more crowded [or the other way around])
-            if (firstTimeBusinessDetails == null) {
-                firstTimeBusinessDetails = responseEntity.getBody();
+                // Saving the first query to reference later
+                // (alerting the user the business is more crowded [or the other way around])
+                if (firstTimeBusinessDetails == null) {
+                    firstTimeBusinessDetails = responseEntity.getBody();
+                }
+
+                // Updating the manager ad the notification
+                UncrowdManager.getInstance().updateBusiness(responseEntity.getBody());
+                updateNotification(firstTimeBusinessDetails, responseEntity.getBody());
+
+                System.out.println("Uncrowd - timer end");
+            }catch(Exception ex) {
+                ex.printStackTrace();
             }
-
-            // Updating the manager ad the notification
-            UncrowdManager.getInstance().updateBusiness(responseEntity.getBody());
-            updateNotification(firstTimeBusinessDetails, responseEntity.getBody());
-
-            System.out.println("Uncrowd - timer end");
         }
     }
 }

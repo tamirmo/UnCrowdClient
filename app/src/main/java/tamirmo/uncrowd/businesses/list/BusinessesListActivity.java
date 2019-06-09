@@ -76,7 +76,7 @@ public class BusinessesListActivity extends AppCompatActivity implements Busines
                 model.getAdvancedSearchBusinesses(advancedSearchInput).observe(this, new Observer<List<Business>>() {
                     @Override
                     public void onChanged(@Nullable List<Business> businesses) {
-                        Toast.makeText(getApplicationContext(),"onChanged from search", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(),"onChanged from search", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -88,7 +88,7 @@ public class BusinessesListActivity extends AppCompatActivity implements Busines
             model.getAllBusinesses().observe(this, new Observer<List<Business>>() {
                 @Override
                 public void onChanged(@Nullable List<Business> businesses) {
-                    Toast.makeText(getApplicationContext(),"onChanged from all", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(),"onChanged from all", Toast.LENGTH_SHORT).show();
                 }
             });
         }
