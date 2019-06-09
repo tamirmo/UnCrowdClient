@@ -16,8 +16,6 @@
                 android:title="@string/location_sort_menu_title" />
             <item android:id="@+id/action_sort_crowded"
                 android:title="@string/crowd_sort_menu_title" />
-            <item android:id="@+id/action_sort_relevance"
-                android:title="@string/relevance_sort_title" />
         </menu>
     </item>
 </menu>

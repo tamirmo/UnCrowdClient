@@ -88,9 +88,6 @@ public class AlternativesActivity extends AppCompatActivity implements Businesse
             case R.id.action_sort_location:
                 businessesFragment.sortByLocation(LocationHandler.getInstance());
                 return true;
-            case R.id.action_sort_relevance:
-                businessesFragment.onRefresh();
-                return true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -116,6 +113,7 @@ public class AlternativesActivity extends AppCompatActivity implements Businesse
             UncrowdManager.getInstance().setSelectedBusiness(originalBusiness);
             // Moving to the detailed view
             Intent detailedBusinessIntent = new Intent(this, BusinessExtendedDetailsActivity.class);
+            detailedBusinessIntent.putExtra(BusinessExtendedDetailsActivity.BUSINESS_ID, originalBusiness.getId());
             startActivity(detailedBusinessIntent);
         }
     }

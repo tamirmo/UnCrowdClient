@@ -55,7 +55,7 @@ public class AllBusinessesLiveData extends BusinessesLiveData {
                     }
 
                     RestTemplate restTemplate = HttpUtilities.createRestTemplate();
-                    final String url2 = HttpUtilities.getBaseServerUrl() + "AllBusinesses/2.5/3.4?size=5&page=0";
+                    final String url2 = HttpUtilities.getBaseServerUrl() + "AllBusinesses/2.5/3.4?size=10&page=0";
 
                     ResponseEntity<tamirmo.uncrowd.data.Business[]> responseEntity2 =
                             restTemplate.getForEntity(url2, tamirmo.uncrowd.data.Business[].class);

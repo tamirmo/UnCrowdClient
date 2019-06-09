@@ -79,10 +79,6 @@ public class BusinessExtendedDetailsActivity extends AppCompatActivity implement
 
         long businessId = getIntent().getLongExtra(BUSINESS_ID, 0);
 
-        if (UncrowdManager.getInstance().getBusinessesMap().get(businessId) != null) {
-            business = UncrowdManager.getInstance().getBusinessesMap().get(businessId);
-        }
-
         averagesGraph = findViewById(R.id.averages_graph);
 
         averagesGraph.setZoomEnabled(false);
