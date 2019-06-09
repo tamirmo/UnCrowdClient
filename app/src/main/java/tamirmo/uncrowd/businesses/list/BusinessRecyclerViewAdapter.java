@@ -93,7 +93,6 @@ public class BusinessRecyclerViewAdapter extends RecyclerView.Adapter<BusinessRe
     }
 
     void onSearchPhraseEntered(String searchPhrase){
-        // TODO: Do in asynctask
         if(searchPhrase == null || searchPhrase.equals("")){
             this.mFilteredIndexes = null;
         }else{

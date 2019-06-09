@@ -181,7 +181,6 @@ public class BusinessesListActivity extends AppCompatActivity implements Busines
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        // TODO: Go to server ?
         businessesFragment.onSearchPhraseEntered(query);
         return false;
     }

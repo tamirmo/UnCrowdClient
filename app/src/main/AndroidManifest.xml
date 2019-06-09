@@ -32,14 +32,22 @@
         </activity>
         <activity
             android:name=".business.view.BusinessExtendedDetailsActivity"
-            android:label="@string/title_activity_business_extended_details" />
-        <activity android:name=".map.MapActivity" />
+            android:label="@string/title_activity_business_extended_details"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".map.MapActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".search.AdvancedSearchActivity"
-            android:label="@string/title_activity_advanced_search" />
+            android:label="@string/title_activity_advanced_search"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".alternatives.AlternativesActivity"
-            android:label="@string/title_activity_alternatives" />
+            android:label="@string/title_activity_alternatives"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
         <service android:name=".service.TrackBusinessService" />
 

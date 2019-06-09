@@ -90,7 +90,6 @@ public class AlternativesActivity extends AppCompatActivity implements Businesse
                 businessesFragment.sortByLocation(LocationHandler.getInstance());
                 return true;
             case R.id.action_sort_relevance:
-                // TODO: Sort by relevance? save the server's original sorting ?
                 businessesFragment.onRefresh();
                 return true;
             default:
@@ -102,7 +101,6 @@ public class AlternativesActivity extends AppCompatActivity implements Businesse
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        // TODO: Go to server ?
         businessesFragment.onSearchPhraseEntered(query);
         return false;
     }

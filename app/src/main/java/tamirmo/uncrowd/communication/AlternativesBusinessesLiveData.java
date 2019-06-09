@@ -41,7 +41,6 @@ public class AlternativesBusinessesLiveData extends BusinessesLiveData {
         protected List<Business> doInBackground(Void... voids) {
 
             try {
-                // TODO: Load from server
                 if (loadBusinessesWeakReference.get() != null) {
 
                     String url = HttpUtilities.getBaseServerUrl() + String.format("Alternatives/%d/",

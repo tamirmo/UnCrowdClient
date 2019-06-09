@@ -55,7 +55,6 @@ public class AllBusinessesLiveData extends BusinessesLiveData {
                     }
 
                     RestTemplate restTemplate = HttpUtilities.createRestTemplate();
-                    // TODO: Add the user's location
                     final String url2 = HttpUtilities.getBaseServerUrl() + "AllBusinesses/2.5/3.4?size=5&page=0";
 
                     ResponseEntity<tamirmo.uncrowd.data.Business[]> responseEntity2 =

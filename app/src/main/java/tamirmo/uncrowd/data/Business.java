@@ -31,7 +31,6 @@ public class Business {
     List<OpeningHours> openingHours;
     List<BusinessType> types;
 
-    // TODO: Think of a way to save this
     private int crowdCountTime;
     private int expectedCountTime;
 

@@ -30,10 +30,6 @@ import tamirmo.uncrowd.data.Business;
  */
 public class BusinessesFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    // TODO: Delete:
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    private int mColumnCount = 1;
-
     private OnBusinessListItemClickedListener mListener;
     private BusinessRecyclerViewAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -51,24 +47,7 @@ public class BusinessesFragment extends Fragment implements SwipeRefreshLayout.O
 
     @SuppressWarnings("unused")
     public static BusinessesFragment newInstance(int columnCount) {
-        BusinessesFragment fragment = new BusinessesFragment();
-
-        // TODO: Delete:
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // TODO: Delete:
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
+        return new BusinessesFragment();
     }
 
     @Override
@@ -118,7 +97,6 @@ public class BusinessesFragment extends Fragment implements SwipeRefreshLayout.O
             this.model =
                     ViewModelProviders.of(getActivity()).get(BusinessesFragmentViewModel.class);
 
-            // TODO: Figure out what do we need to load and update the data
             model.getBusinesses().observe(getActivity(), new Observer<List<Business>>() {
                 @Override
                 public void onChanged(@Nullable List<Business> businesses) {
@@ -168,7 +146,6 @@ public class BusinessesFragment extends Fragment implements SwipeRefreshLayout.O
     @Override
     public void onRefresh() {
 
-        // TODO: Load the list again
         if(this.model != null) {
             model.refresh();
         }
