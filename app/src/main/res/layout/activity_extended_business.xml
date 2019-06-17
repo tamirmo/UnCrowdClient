@@ -134,7 +134,7 @@
                     android:id="@+id/business_hours_expanded"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    app:layout_constraintStart_toEndOf="@+id/business_is_open_text"
+                    app:layout_constraintStart_toEndOf="@+id/business_hours_title"
                     app:layout_constraintTop_toBottomOf="@+id/business_hours"
                     android:text='@{business.getAllOpeningHoursString(), default="10:00 - 17:00\n"}'
                     android:layout_margin="8dp"
